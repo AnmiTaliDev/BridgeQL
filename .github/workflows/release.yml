@@ -1,0 +1,28 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27"
+          gleam-version: "1.18.1"
+          rebar3-version: "3"
+      - run: gleam deps download
+      - run: gleam export erlang-shipment
+      - name: Package shipment
+        run: tar -czf bridgeql-${{ github.ref_name }}-erlang-shipment.tar.gz -C build/erlang-shipment .
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: bridgeql-${{ github.ref_name }}-erlang-shipment.tar.gz
+          generate_release_notes: true

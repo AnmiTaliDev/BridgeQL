@@ -33,7 +33,7 @@ BridgeQL is a learning project and currently implements only the minimal core de
 ## Quality and delivery
 
 - [ ] Automated tests (unit and integration)
-- [ ] CI/CD pipeline
+- [x] CI/CD pipeline (basic build check and tag-triggered GitHub release)
 - [ ] Docker image / containerized deployment
 - [ ] Configuration via a config file in addition to environment variables
 - [ ] Versioned API surface
